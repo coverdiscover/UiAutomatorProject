@@ -1,17 +1,16 @@
 package com.example.sampleuiautomatorproject
 
 import android.content.Intent
-import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import androidx.test.uiautomator.By
-import androidx.test.uiautomator.UiDevice
-import androidx.test.uiautomator.Until
-
+import com.example.sampleuiautomatorproject.util.byStringRes
+import com.example.sampleuiautomatorproject.util.byText
+import com.example.sampleuiautomatorproject.util.context
+import com.example.sampleuiautomatorproject.util.device
+import com.example.sampleuiautomatorproject.util.ext.*
+import org.junit.Assert.assertTrue
+import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
-
-import org.junit.Assert.*
-import org.junit.Before
 
 /**
  * Instrumented test, which will execute on an Android device.
@@ -20,11 +19,6 @@ import org.junit.Before
  */
 @RunWith(AndroidJUnit4::class)
 class InstallHabrTest {
-    companion object {
-        const val TIMEOUT = 5000L
-    }
-    private val device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
-    private val context = InstrumentationRegistry.getInstrumentation().context
 
     @Before
     fun setUp() {
@@ -38,27 +32,24 @@ class InstallHabrTest {
 
     @Test
     fun installHabr() {
-        device.wait(
-            Until.findObject(By.res("com.android.vending:id/search_bar_hint")),
-            TIMEOUT
-        ).click()
-        device.wait(
-            Until.findObject(By.res("com.android.vending:id/search_bar_text_input")),
-            TIMEOUT
-        ).text = "Habrahabr"
-        device.wait(
-            Until.findObject(By.text("Habr — сообщество IT-специалистов")),
-            TIMEOUT
-        ).click()
-        device.wait(
-            Until.findObject(By.text("Установить")),
-            TIMEOUT
-        ).click()
-        val isInstalled = device.wait(
-            Until.findObject(By.text("Открыть")),
-            TIMEOUT
-        ).wait(Until.clickable(true), 20000L)
+        byStringRes("com.android.vending:id/search_bar_hint")
+            .waitFindObject()
+            .click()
+        byStringRes("com.android.vending:id/search_bar_text_input")
+            .waitFindObject()
+            .text = "Habrahabr"
+        byText("Habr — сообщество IT-специалистов")
+            .waitFindObject()
+            .click()
+        byText("Установить")
+            .waitFindObject()
+            .click()
+        val isInstalled = byText("Открыть")
+            .waitFindObject()
+            .waitIsClickable(true, 20.secondsToMillis())
         assertTrue("Приложение не установилось", isInstalled)
-        device.findObject(By.text("Открыть")).click()
+        byText("Открыть")
+            .findObject()
+            .clickAndWaitnewWindow()
     }
 }
