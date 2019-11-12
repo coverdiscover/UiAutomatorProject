@@ -1,28 +1,16 @@
 package com.example.sampleuiautomatorproject.application
 
-import android.content.Intent
 import com.example.sampleuiautomatorproject.util.byStringRes
 import com.example.sampleuiautomatorproject.util.byText
-import com.example.sampleuiautomatorproject.util.context
-import com.example.sampleuiautomatorproject.util.device
 import com.example.sampleuiautomatorproject.util.ext.*
 import org.junit.Assert.assertTrue
 
-class PlayMarket {
+class PlayMarket : AbstractApplication("com.android.vending") {
 
     private val searchSelector = byStringRes("com.android.vending:id/search_bar_hint")
     private val searchInputSelector = byStringRes("com.android.vending:id/search_bar_text_input")
     private val installButton = byText("Установить")
     private val openInstalledAppButton = byText("Открыть")
-
-    fun open() {
-        val intent =
-            context.packageManager.getLaunchIntentForPackage("com.android.vending")?.apply {
-                addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
-            }
-        device.pressHome()
-        context.startActivity(intent)
-    }
 
     fun clickSearch() {
         searchSelector.waitFindObject().click()
