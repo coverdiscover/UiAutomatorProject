@@ -10,6 +10,11 @@ import org.junit.Assert.assertTrue
 
 class PlayMarket {
 
+    private val searchSelector = byStringRes("com.android.vending:id/search_bar_hint")
+    private val searchInputSelector = byStringRes("com.android.vending:id/search_bar_text_input")
+    private val installButton = byText("Установить")
+    private val openInstalledAppButton = byText("Открыть")
+
     fun open() {
         val intent =
             context.packageManager.getLaunchIntentForPackage("com.android.vending")?.apply {
@@ -20,41 +25,31 @@ class PlayMarket {
     }
 
     fun clickSearch() {
-        byStringRes("com.android.vending:id/search_bar_hint")
-            .waitFindObject()
-            .click()
+        searchSelector.waitFindObject().click()
     }
 
     fun typeToSearch(text: String) {
-        byStringRes("com.android.vending:id/search_bar_text_input")
-            .waitFindObject()
-            .text = text
+        searchInputSelector.waitFindObject().text = text
     }
 
     fun clickResult(resultName: String) {
-        byText(resultName)
-            .waitFindObject()
-            .click()
+        byText(resultName).waitFindObject().click()
     }
 
     fun clickInstall() {
-        byText("Установить")
-            .waitFindObject()
-            .click()
+        installButton.waitFindObject().click()
     }
 
     fun waitForInstalled() {
         assertTrue(
             "Приложение не было установлено",
-            byText("Открыть")
+            openInstalledAppButton
                 .waitFindObject()
                 .waitIsClickable(true, 20.secondsToMillis())
         )
     }
 
     fun openInstalledApp() {
-        byText("Открыть")
-            .findObject()
-            .clickAndWaitnewWindow()
+        openInstalledAppButton.findObject().clickAndWaitnewWindow()
     }
 }
