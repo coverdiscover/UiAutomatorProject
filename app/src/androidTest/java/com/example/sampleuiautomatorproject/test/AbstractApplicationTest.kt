@@ -5,7 +5,7 @@ import com.example.sampleuiautomatorproject.application.AbstractApplication
 import com.example.sampleuiautomatorproject.util.device
 import org.junit.Before
 
-abstract class AbstractApplicationTest(val app : AbstractApplication) {
+abstract class AbstractApplicationTest<T : AbstractApplication>(val app : T) {
 
     @Before
     fun assertPackageInstalled() {

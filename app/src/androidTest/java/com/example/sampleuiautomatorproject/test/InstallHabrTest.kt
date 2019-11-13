@@ -11,10 +11,10 @@ import org.junit.runner.RunWith
  * See [testing documentation](http://d.android.com/tools/testing).
  */
 @RunWith(AndroidJUnit4::class)
-class InstallHabrTest: AbstractApplicationTest(PlayMarket()) {
+class InstallHabrTest: AbstractApplicationTest<PlayMarket>(PlayMarket()) {
 
     @Test
-    fun installHabr() = with(PlayMarket()) {
+    fun installHabr() = with(app) {
         open()
         clickSearch()
         typeToSearch("Habrahabr")
