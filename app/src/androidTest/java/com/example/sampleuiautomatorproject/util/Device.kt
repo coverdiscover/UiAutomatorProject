@@ -8,4 +8,4 @@ val device: UiDevice
     get() = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
 
 val context: Context
-    get() = InstrumentationRegistry.getInstrumentation().context
+    get() = InstrumentationRegistry.getInstrumentation().targetContext
