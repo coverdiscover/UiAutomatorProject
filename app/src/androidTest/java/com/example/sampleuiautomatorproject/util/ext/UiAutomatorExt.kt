@@ -5,7 +5,7 @@ import androidx.test.uiautomator.UiObject2
 import androidx.test.uiautomator.Until
 import com.example.sampleuiautomatorproject.util.device
 
-private val defaultTimeout = 10.secondsToMillis()
+private val defaultTimeout = 15.secondsToMillis()
 
 fun BySelector.findObject(): UiObject2 {
     return device.findObject(this)
@@ -37,4 +37,5 @@ fun UiObject2.waitIsClickable(isClickable: Boolean, timeout: Long = defaultTimeo
 
 fun UiObject2.clickAndWaitnewWindow(timeout: Long = defaultTimeout): Boolean {
     return this.clickAndWait(Until.newWindow(), timeout)
+
 }
